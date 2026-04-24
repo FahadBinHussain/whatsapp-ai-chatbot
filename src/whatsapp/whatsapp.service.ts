@@ -1,13 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
-import { OpenaiService } from '../openai/openai.service';
+import { AiService } from '../ai/ai.service';
 import { AppConfig } from 'src/config/AppConfig';
 import { SheetsService } from '../sheets/sheets.service';
 
 @Injectable()
 export class WhatsappService {
   private readonly logger = new Logger(WhatsappService.name);
-  constructor(private openaiService: OpenaiService, private sheets: SheetsService) {}
+  constructor(private aiService: AiService, private sheets: SheetsService) {}
 
 
   async handleUserMessage(number: string, message: string, msgId?: string) {
@@ -33,7 +33,7 @@ export class WhatsappService {
           : '';
 
         const prompt = bizContext ? `${bizContext}\n\nUser: ${message}` : message;
-        const reply = await this.openaiService.generateOpenAIResponse(prompt, history);
+        const reply = await this.aiService.generateResponse(prompt, history);
 
         // Save bot reply
         await this.sheets.appendMessage(number, 'assistant', reply);
@@ -116,7 +116,7 @@ export class WhatsappService {
   }
 
   async generateOpenAIResponse(prompt: string): Promise<string> {
-    return this.openaiService.generateOpenAIResponse(prompt);
+    return this.aiService.generateResponse(prompt);
   }
 
 }

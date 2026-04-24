@@ -2,7 +2,7 @@
 
 Simple WhatsApp chatbot built with NestJS. It uses:
 - WhatsApp Cloud API to receive and send messages
-- OpenAI (gpt-4o-mini) for short, helpful replies
+- OpenAI or Gemini for short, helpful replies
 - Optional Google Sheets to store conversation history and simple settings (no database)
 
 ## Quick start
@@ -10,7 +10,7 @@ Simple WhatsApp chatbot built with NestJS. It uses:
 Prerequisites
 - Node.js 18+ and npm
 - Meta developer app with WhatsApp Cloud API, a phone number ID, and a permanent access token
-- OpenAI API key
+- OpenAI API key or Gemini API key
 - (Optional) Google Cloud service account with Sheets access and a spreadsheet ID
 
 1) Install
@@ -30,8 +30,16 @@ WHATSAPP_API_VERSION=v21.0
 WHATSAPP_PHONE_NUMBER_ID=123456789012345
 WHATSAPP_CHALLANGE_KEY=your_webhook_verify_token
 
+# AI provider: openai or gemini
+AI_PROVIDER=openai
+
 # OpenAI
 OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-4o-mini
+
+# Gemini
+GEMINI_API_KEY=your_gemini_api_key
+GEMINI_MODEL=gemini-2.0-flash
 
 # Google Sheets (optional, enables chat history and settings)
 GOOGLE_SHEETS_ID=your_spreadsheet_id
@@ -71,7 +79,7 @@ Callback URL example
 1. Incoming webhook extracts the sender id, name, text, and message id
 2. Messages are stored to Google Sheets (if configured) and deduplicated by message id
 3. A short prompt is built with optional business facts from the settings sheet (keys starting with "biz:")
-4. OpenAI (gpt-4o-mini) generates a concise reply
+4. The configured AI provider generates a concise reply
 5. Reply is sent back via WhatsApp Cloud API
 
 ## Scripts
@@ -100,7 +108,9 @@ Runtime packages used by the app:
 ```
 src/
    config/AppConfig.ts      # reads env values
-   openai/openai.service.ts # OpenAI chat completions (gpt-4o-mini)
+   ai/ai.service.ts         # AI provider router
+   openai/openai.service.ts # OpenAI chat completions
+   gemini/gemini.service.ts # Gemini chat completions
    sheets/sheets.service.ts # Google Sheets storage (optional)
    whatsapp/...
       whatsapp.controller.ts # webhook + utility endpoints
