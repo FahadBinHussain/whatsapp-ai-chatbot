@@ -149,3 +149,30 @@ This project is open source and available for educational purposes. Feel free to
 ## Author
 
 ⭐️ From [Nugi29](https://github.com/Nugi29)
+
+# steps
+https://developers.facebook.com/apps/ and click create app
+fill name and mail and click next
+Check the box next to: "Connect with customers through WhatsApp" and click next
+click create a business portfolio
+fill Business portfolio name, First name, Last name, Business email and click create portfolio
+click verify later
+select that portfolio and click next
+click next again
+click create app
+fill password and click submit
+click Customize the Connect with customers through WhatsApp use case
+click continue
+click api setup
+for temporary token, click generate access token and click continue, click continue, click save, click got it OR
+for permanent token, go to https://business.facebook.com/settings/system-users and click business name, click add, click i accept, click done, fill System user name, click employee under System user role and click admin, click create sytem user, click assign assets, tick app, toggle full control under Manage app, click assign assets, click done, click assign asset again, click whatsapp accounts, click the ACCOUNT NAME, scroll on the right side, click everything under full control, click assign assets, click done, click generate token, click no app selected below Select app, click APP NAME, click next, toggle never, click next, click no permissions selected under select permissions, check whatsapp_business_messaging and whatsapp_business_management, click generate token, click copy beside the token field and paste as WHATSAPP_API_KEY in .env, click done.
+click copy, paste in .env as WHATSAPP_API_KEY
+click copy beside the phone number id and paste in .env as WHATSAPP_PHONE_NUMBER_ID
+click the field below To and click manange phone number list
+click us, type bd, click bd, fill number
+click next, fill verification code from that numbers whatsapp, click next
+click send message and you would receive hello world from that test number 
+click configuration on the left sidebar and fill Callback URL field with deployed project url like this https://XXX.vercel.app/whatsapp/webhook and fill Verify token field with the same value as WHATSAPP_CHALLANGE_KEY in .env
+click verify and save
+click configuration and under Webhook fields and click toogle beside messages
+go to https://developers.facebook.com/apps/, click APP NAME, click Customize the Connect with customers through WhatsApp use case, click api setup, click add phone number, fill business name, Business website or profile page, Country, click next, fill Category, click next, fill phone number, click next, get BANNED!
